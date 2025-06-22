@@ -40,5 +40,6 @@ module.exports = {
     "webpack.config.ts",
     ".eslintrc.cjs",
     "**/*.json",
+    "**/*.md",
   ],
 };

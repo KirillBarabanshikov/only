@@ -10,7 +10,7 @@
 ## Установка
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/KirillBarabanshikov/only.git
 cd only
 npm install
 ```
