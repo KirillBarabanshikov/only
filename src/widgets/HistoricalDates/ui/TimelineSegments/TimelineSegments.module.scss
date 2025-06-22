@@ -16,7 +16,14 @@
     .timelineSegmentsItem {
       border-radius: 100%;
       background-color: var(--color-black-blue);
+      opacity: 0.4;
+      transition: opacity var(--transition-duration);
+
       @include square(6px);
+
+      &.active {
+        opacity: 1;
+      }
     }
   }
 }

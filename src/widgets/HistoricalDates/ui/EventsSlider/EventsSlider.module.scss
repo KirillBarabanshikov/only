@@ -2,6 +2,18 @@
 
 .eventsSlider {
   position: relative;
+  min-height: 135px;
+
+  .head {
+    border-bottom: 1px solid #c7cdd9;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+
+    .title {
+      font-weight: 700;
+      font-size: 16px;
+    }
+  }
 
   .event {
     .eventTitle {

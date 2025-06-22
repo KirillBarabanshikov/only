@@ -7,18 +7,36 @@ import ArrowRight from '@/shared/assets/icons/arrow-right.svg';
 import styles from './TimelineActions.module.scss';
 
 interface ITimelineActionsProps {
+  timelineCount: number;
+  currentTimelineIndex: number;
+  onChange: (index: number) => void;
   className?: string;
 }
 
-export const TimelineActions: FC<ITimelineActionsProps> = ({ className }) => {
+export const TimelineActions: FC<ITimelineActionsProps> = ({
+  timelineCount,
+  currentTimelineIndex,
+  onChange,
+  className,
+}) => {
   return (
     <div className={clsx(styles.timelineActions, className)}>
-      <div className={styles.count}>06/06</div>
+      <div className={styles.count}>
+        0{currentTimelineIndex + 1}/0{timelineCount}
+      </div>
       <div className={styles.buttons}>
-        <button className={styles.button}>
+        <button
+          disabled={currentTimelineIndex <= 0}
+          onClick={() => onChange(currentTimelineIndex - 1)}
+          className={styles.button}
+        >
           <ArrowLeft />
         </button>
-        <button className={styles.button} disabled>
+        <button
+          disabled={currentTimelineIndex >= timelineCount - 1}
+          onClick={() => onChange(currentTimelineIndex + 1)}
+          className={styles.button}
+        >
           <ArrowRight />
         </button>
       </div>

@@ -1,13 +1,23 @@
 import clsx from 'clsx';
 import { FC } from 'react';
 
+import { ITimeline } from '@/shared/types';
+
 import styles from './TimelineSegments.module.scss';
 
 interface ITimelineSegmentsProps {
+  timelines: ITimeline[];
+  currentTimelineIndex: number;
+  onChange: (index: number) => void;
   className?: string;
 }
 
-export const TimelineSegments: FC<ITimelineSegmentsProps> = ({ className }) => {
+export const TimelineSegments: FC<ITimelineSegmentsProps> = ({
+  timelines,
+  currentTimelineIndex,
+  onChange,
+  className,
+}) => {
   return (
     <div className={clsx(styles.timelineSegments, className)}>
       <svg
@@ -26,10 +36,15 @@ export const TimelineSegments: FC<ITimelineSegmentsProps> = ({ className }) => {
         <circle cx='3' cy='265' r='3' fill='#42567A' />
       </svg>
       <div className={clsx(styles.timelineSegmentsList, 'visible-mobile')}>
-        <div className={styles.timelineSegmentsItem} />
-        <div className={styles.timelineSegmentsItem} />
-        <div className={styles.timelineSegmentsItem} />
-        <div className={styles.timelineSegmentsItem} />
+        {timelines.map((_, index) => (
+          <div
+            key={index}
+            onClick={() => onChange(index)}
+            className={clsx(styles.timelineSegmentsItem, {
+              [styles.active]: currentTimelineIndex === index,
+            })}
+          />
+        ))}
       </div>
     </div>
   );
