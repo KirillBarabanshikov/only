@@ -1,0 +1,22 @@
+@use '@/shared/styles/helpers' as *;
+
+.timelineSegments {
+  @include tablet-above {
+    @include abs-center;
+
+    transform: translateY(-50px);
+  }
+
+  .timelineSegmentsList {
+    display: flex;
+    column-gap: 10px;
+
+    @include abs-center;
+
+    .timelineSegmentsItem {
+      border-radius: 100%;
+      background-color: var(--color-black-blue);
+      @include square(6px);
+    }
+  }
+}

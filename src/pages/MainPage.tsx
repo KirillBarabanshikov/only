@@ -3,7 +3,9 @@ import { HistoricalDates } from '@/widgets';
 export const MainPage = () => {
   return (
     <main>
-      <HistoricalDates />
+      <div className={'container'}>
+        <HistoricalDates />
+      </div>
     </main>
   );
 };

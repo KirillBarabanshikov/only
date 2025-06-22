@@ -23,6 +23,11 @@ export default (env: Env): WebpackConfiguration => {
     module: {
       rules: [
         {
+          test: /\.svg$/,
+          issuer: /\.[jt]sx?$/,
+          use: ['@svgr/webpack'],
+        },
+        {
           test: /\.module\.s[ac]ss$/i,
           use: [
             isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
@@ -85,7 +90,7 @@ export default (env: Env): WebpackConfiguration => {
           ],
         },
         {
-          test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf|otf)$/i,
+          test: /\.(png|jpe?g|gif|woff2?|eot|ttf|otf)$/i,
           type: 'asset/resource',
           generator: {
             filename: 'assets/[hash][ext][query]',

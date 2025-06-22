@@ -1,0 +1,60 @@
+@use '@/shared/styles/helpers' as *;
+
+.eventsSlider {
+  position: relative;
+
+  .event {
+    .eventTitle {
+      font-family: var(--font-family-accent);
+      line-height: 1.2;
+      text-transform: uppercase;
+      color: var(--color-blue);
+      margin-bottom: 15px;
+
+      @include fluid-text(25, 16);
+    }
+
+    .eventDescription {
+    }
+  }
+
+  .eventsButton {
+    @include abs-y;
+    @include flex-center;
+    @include square(40px);
+
+    border-radius: 100%;
+    background-color: var(--color-white);
+    color: var(--color-blue);
+    box-shadow: 0 0 15px 0 rgba(56, 119, 238, 0.1);
+    border: none;
+    z-index: 2;
+
+    @include hover() {
+      background-color: var(--color-blue);
+      color: var(--color-white);
+    }
+
+    &.eventsButtonPrev {
+      left: -60px;
+    }
+
+    &.eventsButtonNext {
+      right: -60px;
+    }
+
+    &:disabled {
+      user-select: none;
+      pointer-events: none;
+      opacity: 0;
+    }
+  }
+
+  .swiper {
+    @include tablet {
+      width: 100vw;
+      margin-left: -20px;
+      padding: 0 20px;
+    }
+  }
+}

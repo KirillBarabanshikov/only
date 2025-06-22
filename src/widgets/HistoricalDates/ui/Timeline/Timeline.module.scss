@@ -1,0 +1,36 @@
+@use '@/shared/styles/helpers' as *;
+
+.timeline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 100px;
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  text-align: center;
+
+  @include fluid-text(200, 56);
+
+  .start {
+    color: var(--color-iris);
+  }
+
+  .end {
+    color: var(--color-fuschia);
+  }
+
+  @include tablet {
+    line-height: 1.5;
+    column-gap: 40px;
+
+    .start {
+      color: var(--color-blue);
+    }
+  }
+
+  @include tablet-above {
+    @include abs-center;
+    transform: translateY(-50px);
+  }
+}
