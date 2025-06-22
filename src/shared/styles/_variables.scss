@@ -1,0 +1,17 @@
+@use 'helpers' as *;
+
+:root {
+  --color-black-blue: #42567a;
+  --color-blue: #3877ee;
+  --color-light: #f4f5f9;
+  --color-fuschia: #ef5da8;
+  --color-iris: #5d5fef;
+
+  --font-family-base: 'PT Sans', sans-serif;
+  --font-family-accent: 'Bebas Neue', sans-serif;
+
+  --container-width: #{rem(1440)};
+  --container-padding-x: #{rem(16)};
+
+  --transition-duration: 0.2s;
+}

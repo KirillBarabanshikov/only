@@ -1,0 +1,33 @@
+@use 'helpers' as *;
+
+body {
+  font-family: var(--font-family);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-black-blue);
+  background-color: var(--color-light);
+
+  @include fluid-text(20, 14);
+}
+
+#root {
+  display: contents;
+}
+
+a,
+button,
+label,
+input,
+textarea,
+select,
+svg * {
+  transition-duration: var(--transition-duration);
+}
+
+a {
+  color: inherit;
+
+  &[class] {
+    text-decoration: none;
+  }
+}
