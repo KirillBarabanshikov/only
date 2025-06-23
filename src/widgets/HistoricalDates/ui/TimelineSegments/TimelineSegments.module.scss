@@ -11,26 +11,45 @@
     border-radius: 100%;
     border: 1px solid var(--border-color);
     transform-origin: center;
+    will-change: transform;
 
     .timelineSegmentsCircleItem {
+      transition: transform 1s;
+
       .point {
+        position: relative;
         border-radius: 100%;
         background-color: var(--color-black-blue);
         border: 1px solid var(--color-black-blue);
         transform: scale(0.1);
         transition:
-          transform 0.2s,
-          background-color 0.2s;
+          transform var(--transition-duration),
+          background-color var(--transition-duration);
         cursor: pointer;
 
         @include flex-center;
         @include square(56px);
+
+        .pointTitle {
+          position: absolute;
+          left: 76px;
+          opacity: 0;
+          font-size: 0;
+          transition: opacity var(--transition-duration);
+          transition-delay: 1.1s;
+          font-weight: 700;
+        }
       }
 
       &.active {
         .point {
           background-color: var(--color-light);
           transform: scale(1);
+
+          .pointTitle {
+            font-size: inherit;
+            opacity: 1;
+          }
         }
       }
 

@@ -1,5 +1,7 @@
+import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
-import { FC, useRef } from 'react';
+import gsap from 'gsap';
+import { FC, useMemo,useRef } from 'react';
 
 import { ITimeline } from '@/shared/types';
 
@@ -18,38 +20,55 @@ export const TimelineSegments: FC<ITimelineSegmentsProps> = ({
   onChange,
   className,
 }) => {
-  const itemsRef = useRef<Array<HTMLDivElement | null>>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const degToRad = Math.PI / 180;
+  const radius = 265;
+
+  useGSAP(() => {
+    gsap.to(containerRef.current, {
+      rotate: -60 * currentTimelineIndex,
+      duration: 1,
+      ease: 'power2.out',
+    });
+  }, [currentTimelineIndex]);
+
+  const points = useMemo(() => {
+    return timelines.map((_, index) => {
+      const angle = 30 + (360 / timelines.length) * index;
+      const rad = angle * degToRad;
+      return {
+        index,
+        x: radius * Math.sin(rad),
+        y: -radius * Math.cos(rad),
+      };
+    });
+  }, [timelines.length]);
 
   return (
     <div className={clsx(styles.timelineSegments, className)}>
-      <div className={styles.timelineSegmentsCircle}>
-        {timelines.map((_, index) => {
-          const initialAngle = 30 + (360 / timelines.length) * index;
-          const initialRad = (initialAngle * Math.PI) / 180;
-          const initialX = 265 * Math.sin(initialRad);
-          const initialY = -265 * Math.cos(initialRad);
-
-          return (
-            <div
-              key={index}
-              ref={(el) => {
-                itemsRef.current[index] = el;
-              }}
-              onClick={() => onChange(index)}
-              className={clsx(styles.timelineSegmentsCircleItem, {
-                [styles.active]: currentTimelineIndex === index,
-              })}
-              style={{
-                position: 'absolute',
-                left: `calc(50% + ${initialX}px)`,
-                top: `calc(50% + ${initialY}px)`,
-                transform: 'translate(-50%, -50%)',
-              }}
-            >
-              <div className={styles.point}>{index + 1}</div>
+      <div ref={containerRef} className={styles.timelineSegmentsCircle}>
+        {points.map(({ index, x, y }) => (
+          <div
+            key={index}
+            onClick={() => onChange(index)}
+            className={clsx(styles.timelineSegmentsCircleItem, {
+              [styles.active]: currentTimelineIndex === index,
+            })}
+            style={{
+              position: 'absolute',
+              left: `calc(50% + ${x}px)`,
+              top: `calc(50% + ${y}px)`,
+              transform: `translate(-50%, -50%) rotate(${60 * currentTimelineIndex}deg)`,
+            }}
+          >
+            <div className={styles.point}>
+              {index + 1}
+              <div className={styles.pointTitle}>
+                {timelines[currentTimelineIndex].title}
+              </div>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
 
       <div className={clsx(styles.timelineSegmentsList, 'visible-mobile')}>
