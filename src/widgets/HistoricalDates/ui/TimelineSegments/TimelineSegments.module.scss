@@ -1,6 +1,48 @@
 @use '@/shared/styles/helpers' as *;
 
 .timelineSegments {
+  .timelineSegmentsCircle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 530px;
+    height: 530px;
+    border-radius: 100%;
+    border: 1px solid var(--border-color);
+    transform-origin: center;
+
+    .timelineSegmentsCircleItem {
+      .point {
+        border-radius: 100%;
+        background-color: var(--color-black-blue);
+        border: 1px solid var(--color-black-blue);
+        transform: scale(0.1);
+        transition:
+          transform 0.2s,
+          background-color 0.2s;
+        cursor: pointer;
+
+        @include flex-center;
+        @include square(56px);
+      }
+
+      &.active {
+        .point {
+          background-color: var(--color-light);
+          transform: scale(1);
+        }
+      }
+
+      @include hover() {
+        .point {
+          background-color: var(--color-light);
+          transform: scale(1);
+        }
+      }
+    }
+  }
+
   @include tablet-above {
     @include abs-center;
 

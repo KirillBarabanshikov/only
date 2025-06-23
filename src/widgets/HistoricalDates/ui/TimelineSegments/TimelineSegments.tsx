@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 
 import { ITimeline } from '@/shared/types';
 
@@ -18,23 +18,40 @@ export const TimelineSegments: FC<ITimelineSegmentsProps> = ({
   onChange,
   className,
 }) => {
+  const itemsRef = useRef<Array<HTMLDivElement | null>>([]);
+
   return (
     <div className={clsx(styles.timelineSegments, className)}>
-      <svg
-        width='536'
-        height='530'
-        viewBox='0 0 536 530'
-        fill='none'
-        xmlns='http://www.w3.org/2000/svg'
-        className={'hidden-mobile'}
-      >
-        <circle opacity='0.2' cx='268' cy='265' r='264.5' stroke='#42567A' />
-        <circle cx='533' cy='265' r='3' fill='#42567A' />
-        <circle cx='138' cy='34' r='3' fill='#42567A' />
-        <circle cx='402' cy='492' r='3' fill='#42567A' />
-        <circle cx='126' cy='489' r='3' fill='#42567A' />
-        <circle cx='3' cy='265' r='3' fill='#42567A' />
-      </svg>
+      <div className={styles.timelineSegmentsCircle}>
+        {timelines.map((_, index) => {
+          const initialAngle = 30 + (360 / timelines.length) * index;
+          const initialRad = (initialAngle * Math.PI) / 180;
+          const initialX = 265 * Math.sin(initialRad);
+          const initialY = -265 * Math.cos(initialRad);
+
+          return (
+            <div
+              key={index}
+              ref={(el) => {
+                itemsRef.current[index] = el;
+              }}
+              onClick={() => onChange(index)}
+              className={clsx(styles.timelineSegmentsCircleItem, {
+                [styles.active]: currentTimelineIndex === index,
+              })}
+              style={{
+                position: 'absolute',
+                left: `calc(50% + ${initialX}px)`,
+                top: `calc(50% + ${initialY}px)`,
+                transform: 'translate(-50%, -50%)',
+              }}
+            >
+              <div className={styles.point}>{index + 1}</div>
+            </div>
+          );
+        })}
+      </div>
+
       <div className={clsx(styles.timelineSegmentsList, 'visible-mobile')}>
         {timelines.map((_, index) => (
           <div
