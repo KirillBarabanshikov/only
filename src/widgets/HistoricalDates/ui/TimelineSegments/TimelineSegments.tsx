@@ -1,7 +1,7 @@
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
-import { FC, useMemo,useRef } from 'react';
+import { FC, useMemo, useRef } from 'react';
 
 import { ITimeline } from '@/shared/types';
 
@@ -46,7 +46,10 @@ export const TimelineSegments: FC<ITimelineSegmentsProps> = ({
 
   return (
     <div className={clsx(styles.timelineSegments, className)}>
-      <div ref={containerRef} className={styles.timelineSegmentsCircle}>
+      <div
+        ref={containerRef}
+        className={clsx(styles.timelineSegmentsCircle, 'hidden-mobile')}
+      >
         {points.map(({ index, x, y }) => (
           <div
             key={index}
